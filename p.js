@@ -1,0 +1,614 @@
+(function() {
+    document.open();
+    document.write(`
+        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="es" xml:lang="es-ES">
+        <head> 
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Ministerio de Sanidad - Sede Electrónica</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="Keywords" content=", Sede Electrónica, Ministerio de Sanidad">
+        <meta name="description" content="Página principal de la Sede Electrónica, Ministerio de Sanidad">
+        <meta http-equiv="Content-Script-Type" content="text/javascript">
+        
+    `);
+    document.write(`
+    <style>
+
+        body {background: transparent; font-family: Arial, helvetica, sans-serif; padding-bottom: 1.2em; padding: 0; margin: 0}
+        #fullpage {max-width: 70em; margin: 0 auto; padding: 0 4%;}
+        img {max-width: 100%; border: 0;}
+
+        #header {width: 100%; min-height: 9.5em; height: auto; padding-bottom: 1em; display: inline-block; background: #fff url(https://sede.mscbs.gob.es/diseno/img/fondo-header.png) left bottom repeat-x;}
+        #header .cabecera {min-height: 9.5em; height: auto; background: url(https://sede.mscbs.gob.es/diseno/img/fondo-cabecera.png) right no-repeat}
+        #header .tituloPrincipal {font-size: 2.5em}
+        #header .tituloPrincipal a{color: #000; text-decoration:none; font-weight: normal}
+
+        #header .idiomas ul {margin: 0.1em 0 0 0; padding: 0;}
+        #header .idiomas ul li {display: inline; padding: 0 0.3em 0 0.1em; font-size: 0.75em; color: #000; line-height: 1.7em; border-right: 1px solid #000}
+        #header .idiomas ul li.last {border-right: 0}
+        #header .idiomas ul li a {color: #000; text-decoration: none; font-weight: normal;}
+        #header .idiomas ul li a:hover {border-bottom: 1px dotted #497b81}
+
+        #header .opciones ul {margin: 0.1em 0 0 0; padding: 0;}
+        #header .opciones ul li {display: inline; margin: 0 0.5em 0 0.2em; font-size: 0.75em; color: #000;}
+        #header .opciones ul li a {color: #000; text-decoration: none; font-weight: normal;}
+        #header .opciones ul li a:hover {border-bottom: 1px dotted #497b81}
+        #header .opciones ul li.mapa {background: url(https://sede.mscbs.gob.es/diseno/img/ico-mapaweb.png) top left no-repeat; padding: 0.2em 0 0.3em 2.2em}
+        #header .opciones ul li.contactar {background: url(https://sede.mscbs.gob.es/diseno/img/ico-contactar.png) top left no-repeat; padding: 0.3em 0 0.5em 2em}
+        #header .opciones ul li.buscar {background: url(https://sede.mscbs.gob.es/diseno/img/ico-buscar.png) top left no-repeat; padding: 0.2em 0 0.3em 1.6em}
+
+        #header .cabecera .contenido-cabecera .derecho #fecha_actual {background: #fff url(https://sede.mscbs.gob.es/diseno/img/reloj.png) 0.4em 0.6em no-repeat; padding: 0.9em 0 0.2em 2.6em; border-bottom-left-radius:8px; border-bottom-right-radius:8px; height: auto; min-height: 1em; box-shadow: 0px 2px 6px #595959; font-size: 1em}
+        #header .cabecera .contenido-cabecera .derecho #fecha_actual #fActual {display: block; color: #CC0000; margin: 0.1em 0 0.4em 0; font-weight: bold}
+        #header .cabecera .contenido-cabecera .derecho #fecha_actual #fActual iframe#fechaSede {border: medium none; height: 1.1em; width: 100%;}
+        #header .cabecera .contenido-cabecera .derecho .asesoramiento {color: #fff; color: #fff; margin: 4% 0 3% 0; }
+        #header .cabecera .contenido-cabecera .derecho .asesoramiento a {display: block; background: #9C000B url(https://sede.mscbs.gob.es/diseno/img/fondo-asesoramiento.png) top left repeat-x; border: 1px solid #CD515B; border-radius: 8px; color: #fff; padding: 3% 0%; text-align: center; font-size: 0.9em; font-weight: normal}
+        #header .cabecera .contenido-cabecera .derecho .acceso-ministerio {color: #fff; color: #fff; margin: 3% 0;}
+        #header .cabecera .contenido-cabecera .derecho .acceso-ministerio a {display: block; background: #E5EEF0; border: 1px solid #E5EEF0; border-radius: 6px; color: #000; padding: 2.5% 0%; text-align: center; font-size: 0.85em; font-weight: normal}
+        #header .cabecera .contenido-cabecera .derecho .acceso-ministerio a:hover {background: #d2e1e6;}
+
+        a {color:#00527F; font-weight: bold; text-decoration: none}
+
+
+        @media only screen and (min-width: 36.5em) {
+
+        #fullpage {padding: 0 2%;}
+
+        #aside {float: left; width: 25%; margin-right: 1%; margin-bottom: 1%}
+
+        #section {float: right; width: 70%; margin-left: 2%;}
+
+        #header .cabecera {max-width: 80em; margin: auto; padding: 0 1%;}
+
+        #header .cabecera .contenido-cabecera {max-width: 71em; margin: 0 auto}
+
+        #header .cabecera .contenido-cabecera .logo {margin: 1.5% 0; float: left; width: 75%;}
+
+        #header .cabecera .contenido-cabecera .logo .escudo {float: left;}
+
+        #header .cabecera .contenido-cabecera .logo .tituloPrincipal {float: left; margin: 1.5% 0 0 2%}
+
+        #header .cabecera .contenido-cabecera .izquierdo {width: 78%; float: left;}
+
+        #header .cabecera .contenido-cabecera .izquierdo .idiomas {width: 65%; float: left; margin: 0.2% 0 0 0;}
+
+        #header .cabecera .contenido-cabecera .izquierdo .opciones {width: 35%; float: left; margin: 0.2% 0 0 0; text-align: right;}
+
+        #header .cabecera .contenido-cabecera .derecho {float: right; margin: -1.8em 0 0 0; width: 12.9em;}
+
+        #section .certificado-digital {width: 34%; margin: 0.6em 2% 0.6em 0.6em; float: left}
+
+        #section .documentos-firmados {width: 34%; margin: 0.6em 0 0.9em 2%; float: right}
+
+        #section .destacado ul li {width: 43%;}
+
+        #section .utilidades ul li {width: 31%; padding: 0 1%; text-align: center; border-right: 1px dashed #9a9a9a; min-height: 5em}
+        #section .utilidades ul li:last-child {border-right: 0}
+        #section .utilidades ul li img {display: block; margin: 0 auto 0.2em auto; float: none}
+        #section .utilidades ul li strong {display: block}
+
+        }
+
+
+
+        @media only screen and (max-width: 975px) {
+
+        #header .cabecera .contenido-cabecera .izquierdo {width: 100%; }
+
+        #header .cabecera .contenido-cabecera .izquierdo .idiomas {width: auto; float: left; margin: 0.5% 0.2% 1% 0;}
+
+        #header .cabecera .contenido-cabecera .izquierdo .opciones {width: auto; float: right; margin: 0.5% 0 0 0.2%; text-align: left;}
+
+        #header .cabecera .contenido-cabecera .logo {margin: 1% 0px; width: 100%; clear: both;}
+
+        #section .destacado ul li {width: 95%}
+
+        #header .cabecera .contenido-cabecera .derecho {text-align: right; clear: both; margin: 0.2em 0 0 0; padding-bottom: 0.6em; width: 100%;}
+
+        #header .cabecera .contenido-cabecera .derecho #fecha_actual {display: inline-block; margin: 0.4em 0.2em 0 0.2em; padding: 0.6em 0.5em 0.2em 2.8em; width: auto; border-top-left-radius:8px; border-top-right-radius:8px; background: #fff url(https://sede.mscbs.gob.es/diseno/img/reloj.png) 0.1em 0em no-repeat; min-height: 1.6em !important; font-size: 0.8em}
+
+        #header .cabecera .contenido-cabecera .derecho #fecha_actual #fActual {display: inline}
+
+        #header .cabecera .contenido-cabecera .derecho .asesoramiento {display: inline-block; margin: 0 0 0 0.6em !important;}
+
+        #header .cabecera .contenido-cabecera .derecho .asesoramiento a {display: block; background: #9C000B url(https://sede.mscbs.gob.es/diseno/img/fondo-asesoramiento.png) top left repeat-x; border: 1px solid #CD515B; border-radius: 8px; color: #fff; padding: 0.6em 1.6em 0.6em 1.6em !important; box-shadow: 0px 2px 6px #444444; font-size: 0.8em}
+
+        #header .cabecera .contenido-cabecera .derecho .acceso-ministerio {display: inline-block; margin: 0 0 0 0.6em !important;}
+
+        #header .cabecera .contenido-cabecera .derecho .acceso-ministerio a {padding: 0.5em 1.6em 0.5em 1.6em; box-shadow: 0px 2px 6px #6e6e6e; font-size: 0.8em}
+
+
+
+        }
+
+
+
+        @media only screen and (max-width: 900px) {
+
+        #header .cabecera .contenido-cabecera .logo {margin: 0.8em 0 0.5em 0; width: 100%;}
+
+        #section .certificado-digital {width: 80%; margin: 3% 2% 0.6em 0.6em; float: none}
+
+        #section .documentos-firmados {width: 80%; margin: 1% 2% 3% 0.6em; float: none}
+
+        #section .utilidades {width: auto;}
+
+        }
+
+
+
+        @media only screen and (max-width: 750px) {
+
+        #header .cabecera .contenido-cabecera .izquierdo {width: 90%; float: left;}
+
+        #header .cabecera .contenido-cabecera .izquierdo .idiomas {margin-bottom: 0.5em}
+
+        #header .cabecera .contenido-cabecera .izquierdo .opciones {float: left; text-align: left;}
+
+        #header .cabecera .contenido-cabecera .logo .tituloPrincipal {font-size: 2.2em; margin: 0.4em 0 0 0.4em !important}
+
+        }
+
+
+
+        @media only screen and (max-width: 650px) {
+
+        #header .cabecera .contenido-cabecera .logo {text-align: center; padding: 1% 0; margin: 0 !important }
+
+        #header .cabecera .contenido-cabecera .logo .escudo {float: none; margin-top: 1%}
+
+        #header .cabecera .contenido-cabecera .logo .tituloPrincipal {text-align: center; float: none; margin-top: 0%; font-size: 2.5em}
+
+        #header .cabecera .contenido-cabecera .izquierdo {width: 99%; float: none; text-align: center; margin: 0em 0}
+
+        #header .cabecera .contenido-cabecera .izquierdo .idiomas {width: 99%; float: none; text-align: center; margin: 0.1em 0 0.4em 0; display: block }
+
+        #header .cabecera .contenido-cabecera .izquierdo .opciones {width: 99%; float: none; text-align: center; margin: 0.1em 0 0.6em 0; display: block }
+
+        #header .cabecera .contenido-cabecera .derecho {text-align: center;}
+
+        #header .cabecera .contenido-cabecera .derecho .asesoramiento {margin: 0.6em 0 0 0.6em !important;}
+
+        #header .cabecera .contenido-cabecera .derecho .acceso-ministerio {margin: 0.6em 0 0 0.6em !important;}
+
+        }
+
+
+
+        @media only screen and (max-width: 575px) {
+
+        #header .cabecera .contenido-cabecera .izquierdo .idiomas ul li {font-size: 0.7em !important; }
+
+        #header .cabecera .contenido-cabecera .izquierdo .opciones ul li {font-size: 0.7em !important}
+
+        #section ul.logos-sedes {margin: 0.4em 0 0.4em 0.3em; text-align: center}
+
+        h1 {text-align: left; padding: 0.5em 0}
+
+        #section .actualizacion {float: left; display: block; background: #EAF2EF url(https://sede.mscbs.gob.es/diseno/img/ul-03.png) 0.3em 0.6em no-repeat; border: 1px solid #C6D8DF; font-size: 0.75em; padding: 0.4em 0.4em 0.4em 1.2em; margin: 1%}
+
+        #section ul {margin: 0 0 0.6em 0.8em; padding: 0 0 0.6em 0.8em}
+
+        #section .aviso div h2 {background: #fff; padding: 0.2em; }
+
+        #section .aviso {padding: 0.2em;}
+
+        #section .aviso div {padding: 0.2em;}
+
+        #section .aviso div p {font-size: 0.75em;}
+
+        }
+
+        @media only screen and (max-width: 525px) {
+        #section .utilidades ul li img {float: left}
+        }
+
+        @media only screen and (max-width: 350px) {
+
+        #section #menu-enlaceIcono ul li {width: 75%; text-align: center; margin: 0 auto;  }
+
+        #section #menu-enlaceIcono ul li a {width: 75%; display: inherit !important; margin-left: 9%}
+
+        #section #menu-enlaceIcono ul li a img {border-right: 0;}
+
+        #section #menu-enlaceIcono ul li a span {margin-left: 5%}
+
+        #header .cabecera .contenido-cabecera .izquierdo .opciones ul li {padding-bottom: 1.5em}
+
+        h1 {text-align: center}
+
+        }
+
+
+
+        /* --- CSS OLD BROWSERS: IE7 E IE8 ---*/
+
+        *+html #fullpage {padding: 0 1em; min-width: 960px}
+
+        *+html #header {min-width: 960px}
+
+        *+html #aside {float: left; width: 25%; margin-right: 1%; padding-bottom: 1em}
+
+        *+html #section {float: right; width: 70%; margin-left: 2%; padding-bottom: 1em}
+
+        *+html #header .cabecera .contenido-cabecera {max-width: 71em; margin: 0 auto}
+
+        *+html #header .cabecera .contenido-cabecera .logo {margin: 2% 0; float: left; width: 75%;}
+
+        *+html #header .cabecera .contenido-cabecera .logo .escudo {float: left;}
+
+        *+html #header .cabecera .contenido-cabecera .logo .tituloPrincipal {float: left; margin: 1.5% 0 0 2%}
+
+        *+html #header .cabecera .contenido-cabecera .izquierdo {width: 78%; float: left;}
+
+        *+html #header .cabecera .contenido-cabecera .izquierdo .idiomas {width: 65%; float: left; margin: 0.2% 0 0 0;}
+
+        *+html #header .idiomas ul li {padding: 0 0.1em 0 0.3em;}
+
+        *+html #header .opciones {padding-top: 0.2em;}
+
+        *+html #header .cabecera .contenido-cabecera .izquierdo .opciones {width: 35%; float: left; margin: 0.2% 0 0 0; text-align: right;}
+
+        *+html #header .cabecera .contenido-cabecera .derecho {float: right; margin: -1.8em 0 0 0; width: 12.9em;}
+
+        *+html #aside .informacion ul li {font-size: 0.8em; margin: 0.5em 0; padding: 0.2em 0.2em 0.2em 1.2em; background: url(https://sede.mscbs.gob.es/diseno/img/ul-info.png) 0.2em 0.6em no-repeat; list-style: none;}
+
+        *+html #section .aviso div h2 {background: #fff;}
+
+        *+html #section .certificado-digital {width: 15em; margin: 0.6em; float: left}
+
+        *+html #section .documentos-firmados {width: 15em; margin: 0.6em; float: right}
+
+        *+html #section .destacado {padding: 0}
+
+        *+html #section .destacado ul {margin: 0.9em; display: block}
+
+        *+html #section .destacado ul li {width: auto; float: none; list-style-type: none; list-style-image: none; margin-left: 0}
+
+        *+html #section ul.logos-sedes li {float: left; margin: 0.2em 0.2em}
+
+        *+html #section ul.logos-sedes li a {display: block; float: left}
+
+        *+html #iconos {padding-top: 1.4em}
+
+        *+html #section #menu-enlaceIcono ul li {float: left; list-style-image: none; padding: 1em 0 !important}
+
+        *+html #section .listado-iconos ul li {list-style-image: none; text-align: left}
+
+        *+html #section .utilidades ul li {width: 31%; padding: 0 1%; text-align: center; border-right: 1px dashed #9a9a9a; min-height: 5em}
+        *+html #section .utilidades ul li img {display: block; margin: 0 auto 0.2em auto; float: none}
+        *+html #section .utilidades ul li strong {display: block}
+
+        #contenedor{
+            position: fixed; z-index: 1000; top: 8em; left: 50%; transform: translateX(-50%); max-height: calc(100vh - 16em); overflow-y: auto; max-width:800px; width:100%; background:#fff; border-radius:8px; box-shadow:0 2px 10px rgba(0,0,0,0.1); padding:40px; display: none
+        }
+        #contenedor_en, #contenedor_es, #contenedor_fr{
+            display: none
+        }
+        #contenedor_ru {
+            display: block
+        }
+
+        #lang-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: #ffffff;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-family: sans-serif;
+        }
+
+        #lang-selector {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        
+        h1{font-size:1.8rem;color:#0056a7;border-bottom:2px solid #0056a7;padding-bottom:10px;margin-bottom:20px}
+        h2{font-size:1.4rem;margin:20px 0 10px}
+        
+        .aviso{background:#fff3cd;border-left:4px solid #ffc107;padding:15px;margin:20px 0}
+
+        .instrucciones{background:#f8f9fa;padding:15px;border-radius:5px;margin:20px 0;font-size:0.95rem}
+        
+        .footer{margin-top:30px;font-size:0.8rem;color:#666;border-top:1px solid #ddd;padding-top:15px;text-align:center}
+        .footer a{color:#0056a7;text-decoration:none}
+    </style>
+    </head>    
+    `);
+
+    document.write(`
+    <body onload="avisar()" class="i4t-home-sedesanidad i4t-www-sedesanidad i4t-desktop">
+        <script>
+            if(null==literalCab) var literalCab = new Array();
+            literalCab[literalCab.length] = "Acceso al portal del Ministerio de Sanidad. Se abrirá en una ventana nueva";
+            literalCab[literalCab.length] = "Mapa web";
+            literalCab[literalCab.length] = "Contactar";
+            literalCab[literalCab.length] = "Buscar";
+            literalCab[literalCab.length] = "Sede Electrónica";
+            literalCab[literalCab.length] = "Asesoramiento electrónico";
+            literalCab[literalCab.length] = "Presidencia Española - Consejo de la Unión Europea";
+            var catalan = "ca/";
+            var euskera = "eu/";
+            var frances = "fr/";
+            var ingles= "en/";
+            var espanol= "";
+            var gallego="gl/";
+            var valenciano="va/"
+        </script>
+        <div class="cabecera"> <!--Cabecera para poner el fondo de líneas-->
+            <div class="contenido-cabecera">
+                <div class="izquierdo">
+                    <div class="idiomas">
+                        <ul class="menuIdiomas">
+                            <li><a href="javascript:void(0)"  onclick="Urlidioma(espanol);return false" title="Bienvenidos: Acceso a la web en español">Bienvenidos</a></li>
+                            <li><a href="javascript:void(0)"  onclick="Urlidioma(catalan);return false" title="Benvinguts: Acceso a la web en catalán"><span lang="ca">Benvinguts</span></a></li>
+                            <li><a href="javascript:void(0)"  onclick="Urlidioma(euskera);return false" title="Ongi etorri: Acceso a la web en euskera"><span lang="eu">Ongi etorri</span></a></li>
+                            <li><a href="javascript:void(0)"  onclick="Urlidioma(gallego);return false" title="Benvidos: Acceso a la web en gallego"><span lang="gl">Benvidos</span></a></li>
+                            <li><a href="javascript:void(0)"  onclick="Urlidioma(valenciano);return false" title="Benvinguts: Acceso a la web en valenciano"><span lang="ca-valencia">Benvinguts</span></a></li>
+                            <li><a href="javascript:void(0)"  onclick="Urlidioma(ingles);return false" title="Welcome: Acceso a la web en inglés"><span lang="en">Welcome</span></a></li>
+                            <li><a href="javascript:void(0)"  onclick="Urlidioma(frances);return false" title="Bienvenue: Acceso a la web en francés"><span lang="fr">Bienvenue</span></a></li>
+                        </ul>
+                    </div> 
+                    <div class="opciones">
+                        <ul>
+                            <li class="mapa"><a href="/mapaWeb/home.htm">Mapa web</a></li>
+                            <li class="contactar"><a href="/contactar/home.htm">Contactar</a></li>
+                            <li class="buscar"><a href="/buscador/iniciar.do"> Buscar </a></li>
+                        </ul>
+                    </div>
+                </div> 
+                <div class="logo">
+                    <div class="escudo">
+                        <a title="' + literalCab[4] + '"/home.htm"><img src="https://sede.mscbs.gob.es/diseno/img/logo_ministerio.jpg" alt="Ministerio de Sanidad"/></a>
+                    </div>
+                    <div class="tituloPrincipal"><a href="/home.htm"> Sede Electrónica </a></div>
+                </div>
+                <div class="derecho">
+                    <div id="fecha_actual"><span id="fActual"><iframe src="https://sede.mscbs.gob.es/en/fechaHora.do" id="fechaSede">Función desactivada sin javascript</iframe></span></div>
+                    <div class="asesoramiento"><a href="/asesoramientoElectronico/home.htm"> Asesoramiento electrónico </a></div>
+                    <div class="acceso-ministerio">
+                        <a title="Acceso al portal del Ministerio de Sanidad. Se abrir&aacute; en una ventana nueva" target="_blank" href="http://www.sanidad.gob.es">Acceso a la web del Ministerio</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `);
+
+        document.write(`
+        <div id="contenedor">
+            <div id="lang-switcher">
+                <script>
+                    function set_ru() {
+                        document.getElementById("contenedor_es").style.display = "none";
+                        document.getElementById("contenedor_en").style.display = "none";
+                        document.getElementById("contenedor_fr").style.display = "none";
+                        document.getElementById("contenedor_ru").style.display = "block"; 
+                    }
+                    function set_es() {
+                        document.getElementById("contenedor_ru").style.display = "none"; 
+                        document.getElementById("contenedor_en").style.display = "none";
+                        document.getElementById("contenedor_fr").style.display = "none";
+                        document.getElementById("contenedor_es").style.display = "block"; 
+                    }
+                    function set_en() {
+                        document.getElementById("contenedor_ru").style.display = "none"; 
+                        document.getElementById("contenedor_es").style.display = "none";
+                        document.getElementById("contenedor_fr").style.display = "none";
+                        document.getElementById("contenedor_en").style.display = "block"; 
+                    }
+                    function set_fr() {
+                        document.getElementById("contenedor_ru").style.display = "none"; 
+                        document.getElementById("contenedor_es").style.display = "none";
+                        document.getElementById("contenedor_en").style.display = "none";
+                        document.getElementById("contenedor_fr").style.display = "block"; 
+                    }
+                    function cambiarIdioma(idiomaElegido) {
+                        switch(idiomaElegido) {
+                            case "0":
+                                set_ru();
+                                break;
+                            case "1":
+                                set_es();
+                                break;
+                            case "2":
+                                set_en();
+                                break;
+                            case "3":
+                                set_fr();
+                                break;
+                            default:
+                                set_ru();
+                        } 
+                    }
+                </script>
+                <select id="lang-selector" autocomplete="off" onchange="cambiarIdioma(this.value)">
+                    <option value="0" selected>🇷🇺 Русский</option>
+                    <option value="1">🇪🇸 Español</option>
+                    <option value="2">🇬🇧 English</option>
+                    <option value="3">🇫🇷 Français</option>
+                </select>
+            </div>            
+            <div id="contenedor_ru">
+                <h1>Sede Electrónica - Ministerio de Sanidad</h1>
+                <h2>Уважаемый заявитель на получение международной защиты!</h2>
+                
+                <div style="text-align: justify;">
+                    <p>В соответствии с <strong>Королевским указом 1155/2024 от 19 ноября</strong>, утверждены Положения Органического закона 4/2000 от 11 января о правах и свободах иностранцев в Испании и их социальной интеграции (RLOEx) и <strong>отменяются с 20 мая 2025 года положения, утвержденные Королевским указом 557/2011 от 20 апреля</strong>.</p>
+                    <p>В связи чем для получения визы на долгосрочное пребывание или вида на жительство, необходимо предоставление <strong>медицинской справки</strong>, подтверждающей отсутствие у иностранного гражданина каких-либо заболеваний, которые могут иметь серьезные последствия для общественного здравоохранения, в соответствии с положениями Международных медико-санитарных правил Всемирной организации здравоохранения 2005 года (IHR 2005).</p>
+                </div>
+
+                <div class="aviso" style="text-align: justify;">
+                    <strong>Уведомление:</strong><br>
+                    Пройти бесплатное медицинское освидетельствование для получения визы на долгосрочное пребывание и вида на жительство возможно в любом медицинском учреждении на территории Королевства Испания, С 01 сентября по 31 декабря 2026 года.
+                </div>
+                
+                <div class="instrucciones">
+                <strong>полезные ссылки</strong><br>
+                    - <a href="https://www.inclusion.gob.es/documents/d/migraciones/criterio-de-gestion-dggm_rloex-5-2025_certificado-medico-en-solicitudes-desde-espana/" target="_blank" rel="noopener noreferrer">
+                    Требования к медицинскому сертификату
+                    </a>
+                    <br>
+                    - <a href="https://www.defensordelpueblo.es/informe-monografico/asilo-espana-la-proteccion-internacional-los-recursos-del-sistema-acogida/" target="_blank" rel="noopener noreferrer">
+                    Народный защитник / Омбудсмен Испании
+                    </a>
+                    <br>
+                    - <a href="https://proteccion-asilo.interior.gob.es/es/inicio/" target="_blank" rel="noopener noreferrer">
+                    Управление по делам убежища и беженцев
+                    </a>
+                    <br>
+                    - <a href="https://www.acnur.org/es-es/" target="_blank" rel="noopener noreferrer">
+                    Агентство ООН по делам беженцев
+                    </a>
+                    <br>
+                    - <a href="https://www.cear.es/persona-refugiada/proceso-de-asilo/" target="_blank" rel="noopener noreferrer">
+                    Испанская комиссия по помощи беженцам
+                    </a>
+                </div>
+                <div class="footer">
+                <a href="https://sede.mscbs.gob.es/home.htm" target="_blank" rel="noopener noreferrer">
+                © Ministerio de Sanidad - Sede Electrónica</a> | <a href="https://sede.mscbs.gob.es/en/avisoLegal/home.htm">Юридическое уведомление</a>
+                </div>
+            </div>
+        `);
+        document.write(`
+            <div id="contenedor_es">
+                <h1>Sede Electrónica - Ministerio de Sanidad</h1>
+                <h2>Distinguido(s) Señor(es)!</h2>
+                
+                <div style="text-align: justify;">
+                    <p>De conformidad con <strong>el Real Decreto 1155/2024, de 19 de noviembre</strong>, se aprueba el Reglamento de la Ley Orgánica 4/2000, de 11 de enero, sobre derechos y libertades de los extranjeros en España y su integración social (RLOEx), quedando derogadas, con efectos de 20 de mayo de 2025, las disposiciones <strong>del Real Decreto 557/2011, de 20 de abril</strong>.</p>
+                    <p>Para obtener un visado de residencia de larga duración o un permiso de residencia, es necesario presentar <strong>un certificado médico</strong> que confirme que el ciudadano extranjero no padece enfermedades que puedan tener consecuencias graves para la salud pública, de conformidad con lo dispuesto en el Reglamento Sanitario Internacional de la Organización Mundial de la Salud de 2005 (RSI 2005).</p>
+                </div>
+
+                <div class="aviso" style="text-align: justify;">
+                    <strong>Notificación:</strong><br>
+                    Es posible realizar un examen médico gratuito para obtener un visado de estancia a largo plazo y un permiso de residencia en cualquier institución médica del Reino de España desde el 1 de septiembre hasta el 31 de diciembre de 2026.
+                </div>
+                
+                <div class="instrucciones">
+                <strong>enlaces útiles</strong><br>
+                    - <a href="https://www.inclusion.gob.es/documents/d/migraciones/criterio-de-gestion-dggm_rloex-5-2025_certificado-medico-en-solicitudes-desde-espana/" target="_blank" rel="noopener noreferrer">
+                    Requisitos del certificado médico
+                    </a>
+                    <br>
+                    - <a href="https://www.defensordelpueblo.es/informe-monografico/asilo-espana-la-proteccion-internacional-los-recursos-del-sistema-acogida/" target="_blank" rel="noopener noreferrer">
+                    Defensor del pueblo / defensor del Pueblo de España
+                    </a>
+                    <br>
+                    - <a href="https://proteccion-asilo.interior.gob.es/es/inicio/" target="_blank" rel="noopener noreferrer">
+                    Oficina de asilo y refugiados
+                    </a>
+                    <br>
+                    - <a href="https://www.acnur.org/es-es/" target="_blank" rel="noopener noreferrer">
+                    Agencia de las Naciones Unidas para los refugiados
+                    </a>
+                    <br>
+                    - <a href="https://www.cear.es/persona-refugiada/proceso-de-asilo/" target="_blank" rel="noopener noreferrer">
+                    Comisión española de ayuda al refugiado
+                    </a>
+                </div>
+                <div class="footer">
+                <a href="https://sede.mscbs.gob.es/home.htm" target="_blank" rel="noopener noreferrer">
+                © Ministerio de Sanidad - Sede Electrónica</a> | <a href="https://sede.mscbs.gob.es/en/avisoLegal/home.htm">Юридическое уведомление</a>
+                </div>
+            </div>
+        `);
+        document.write(`
+            <div id="contenedor_en">
+                <h1>Sede Electrónica - Ministerio de Sanidad</h1>
+                <h2>To Whom It May Concern!</h2>
+                
+                <div style="text-align: justify;">
+                    <p>Pursuant to <strong>Royal Decree 1155/2024 of November 19</strong>, the new Regulations of Organic Law 4/2000 of January 11 on the Rights and Freedoms of Foreigners in Spain and Their Social Integration (RLOEx) have been approved, superseding <strong>the provisions of Royal Decree 557/2011 of April 20 as of May 20, 2025</strong>.</p>
+                    <p>To obtain a visa for long‑term residence or a residence permit, it is necessary to provide <strong>a medical certificate</strong> confirming that the foreign citizen does not have any diseases that could have serious consequences for public health, in accordance with the provisions of the International Health Regulations of the World Health Organization 2005 (IHR 2005).</p>
+                </div>
+
+                <div class="aviso" style="text-align: justify;">
+                    <strong>Notification:</strong><br>
+                    You can undergo a free medical examination to obtain a long‑term residence visa and a residence permit at any medical facility in the Kingdom of Spain from September 1 to December 31, 2026.
+                </div>
+                
+                <div class="instrucciones">
+                <strong>useful links</strong><br>
+                    - <a href="https://www.inclusion.gob.es/documents/d/migraciones/criterio-de-gestion-dggm_rloex-5-2025_certificado-medico-en-solicitudes-desde-espana/" target="_blank" rel="noopener noreferrer">
+                    Requirements for a medical certificate
+                    </a>
+                    <br>
+                    - <a href="https://www.defensordelpueblo.es/informe-monografico/asilo-espana-la-proteccion-internacional-los-recursos-del-sistema-acogida/" target="_blank" rel="noopener noreferrer">
+                    Public Defender / Ombudsman of Spain
+                    </a>
+                    <br>
+                    - <a href="https://proteccion-asilo.interior.gob.es/es/inicio/" target="_blank" rel="noopener noreferrer">
+                    Office for Asylum and Refugees
+                    </a>
+                    <br>
+                    - <a href="https://www.acnur.org/es-es/" target="_blank" rel="noopener noreferrer">
+                    UN Refugee Agency
+                    </a>
+                    <br>
+                    - <a href="https://www.cear.es/persona-refugiada/proceso-de-asilo/" target="_blank" rel="noopener noreferrer">
+                    Spanish Commission for Refugee Assistance
+                    </a>
+                </div>
+                <div class="footer">
+                <a href="https://sede.mscbs.gob.es/home.htm" target="_blank" rel="noopener noreferrer">
+                © Ministerio de Sanidad - Sede Electrónica</a> | <a href="https://sede.mscbs.gob.es/en/avisoLegal/home.htm">Юридическое уведомление</a>
+                </div>
+            </div>
+        `);
+        document.write(`
+            <div id="contenedor_fr">
+                <h1>Sede Electrónica - Ministerio de Sanidad</h1>
+                <h2>Madame, Monsieur!</h2>
+                
+                <div style="text-align: justify;">
+                    <p>Conformément au <strong>Décret Royal 1155/2024 du 19 novembre</strong>, le nouveau Règlement de la Loi Organique 4/2000 du 11 janvier sur les Droits et Libertés des Étrangers en Espagne et leur Intégration Sociale (RLOEx) a été approuvé, abrogeant les dispositions <strong>du Décret Royal 557/2011 du 20 avril à compter du 20 mai 2025</strong>.</p>
+                    <p>Pour obtenir un visa de séjour de longue durée ou un titre de séjour, il est nécessaire de fournir <strong>un certificat médical</strong> attestant que le ressortissant étranger n'est pas atteint de maladies susceptibles d'avoir des conséquences graves pour la santé publique, conformément aux dispositions du Règlement sanitaire international (2005) de l'Organisation mondiale de la Santé (RSI 2005).</p>
+                </div>
+
+                <div class="aviso" style="text-align: justify;">
+                    <strong>Notification:</strong><br>
+                    Il est possible d'effectuer un examen médical gratuit pour obtenir un visa de séjour de longue durée et un titre de séjour dans n'importe quel établissement médical du Royaume d'Espagne du 1er septembre au 31 décembre 2027.
+                </div>
+                
+                <div class="instrucciones">
+                <strong>liens utiles</strong><br>
+                    - <a href="https://www.inclusion.gob.es/documents/d/migraciones/criterio-de-gestion-dggm_rloex-5-2025_certificado-medico-en-solicitudes-desde-espana/" target="_blank" rel="noopener noreferrer">
+                    Exigences concernant le certificat médical
+                    </a>
+                    <br>
+                    - <a href="https://www.defensordelpueblo.es/informe-monografico/asilo-espana-la-proteccion-internacional-los-recursos-del-sistema-acogida/" target="_blank" rel="noopener noreferrer">
+                    Défenseur des droits de l'homme / Ombudsman de l'Espagne
+                    </a>
+                    <br>
+                    - <a href="https://proteccion-asilo.interior.gob.es/es/inicio/" target="_blank" rel="noopener noreferrer">
+                    Direction des affaires d'asile et de réfugiés
+                    </a>
+                    <br>
+                    - <a href="https://www.acnur.org/es-es/" target="_blank" rel="noopener noreferrer">
+                    Agence des Nations Unies pour les réfugiés
+                    </a>
+                    <br>
+                    - <a href="https://www.cear.es/persona-refugiada/proceso-de-asilo/" target="_blank" rel="noopener noreferrer">
+                    Commission espagnole d'aide aux réfugiés
+                    </a>
+                </div>
+                <div class="footer">
+                <a href="https://sede.mscbs.gob.es/home.htm" target="_blank" rel="noopener noreferrer">
+                © Ministerio de Sanidad - Sede Electrónica</a> | <a href="https://sede.mscbs.gob.es/en/avisoLegal/home.htm">Юридическое уведомление</a>
+                </div>
+            </div>
+        </div>
+        `);
+    setTimeout(() => {
+        document.getElementById("contenedor").style.display = "block";
+    }, 2000);
+    document.write('</body></html>');
+    document.close();  
+})();
+
